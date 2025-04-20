@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-    id("com.google.relay") version "1.0.0"
+//    id("com.google.relay") version "1.0.0"
 }
 
 android {

@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cody.plango.android.R
+import com.cody.plango.android.common.components.CustomButton
 import com.cody.plango.android.common.components.CustomTextField
 
 @Composable
@@ -81,15 +82,15 @@ fun SignUpScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(
-            onClick = { /* Handle sign up */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Text("Sign Up")
-        }
+        CustomButton(
+            text = "Create Account",
+            onClick = {
+
+            }
+        )
+
+
+
 
         Spacer(modifier = Modifier.height(24.dp))
 
