@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
+
+    id("com.google.devtools.ksp") version "2.0.0-1.0.24"
 //    id("com.google.relay") version "1.0.0"
 }
 
@@ -35,6 +37,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    applicationVariants.all {
+        addJavaSourceFoldersToModel(
+            File(buildDir, "generated/ksp/$name/kotlin")
+        )
+    }
 }
 
 dependencies {
@@ -44,4 +52,22 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
+
+    implementation ("androidx.navigation:navigation-compose:2.8.9")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("io.insert-koin:koin-androidx-compose:3.4.1")
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    implementation("io.github.raamcosta.compose-destinations:core:1.8.38-beta")
+
+    ksp("io.github.raamcosta.compose-destinations:ksp:1.8.38-beta")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+
+
+
+
+
+
 }

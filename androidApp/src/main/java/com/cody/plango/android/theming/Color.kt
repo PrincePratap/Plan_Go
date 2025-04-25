@@ -18,6 +18,7 @@ val Black24 = Color(0xFF242526)
 
 
 val White = Color(0xFFFFFFFF)
+val whiteTheme = Color(0xFFF7F7F9)
 val textFieldWhite = Color(0xFFF7F7F9)
 
 val White87 = Color(0xFFE2E2E2)
