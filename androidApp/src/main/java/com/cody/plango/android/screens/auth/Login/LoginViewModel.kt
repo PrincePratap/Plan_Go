@@ -1,4 +1,4 @@
-package com.cody.plango.android.auth.signup
+package com.cody.plango.android.screens.auth.Login
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,17 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class SignUpViewModel(
-//    private val signUpUseCase: SignUpUseCase
-): ViewModel() {
-    var uiState by mutableStateOf(SignUpUiState())
+class LoginViewModel (): ViewModel() {
+    var uiState by mutableStateOf(LoginUiState())
         private set
 
-    fun signUp() {
+    fun signIn(){
 //        viewModelScope.launch {
 //            uiState = uiState.copy(isAuthenticating = true)
 //
-//            val authResultData = signUpUseCase(uiState.email, uiState.username, uiState.password)
+//            val authResultData = signInUseCase(uiState.email, uiState.password)
 //
 //            uiState = when(authResultData){
 //                is Result.Error -> {
@@ -36,10 +34,6 @@ class SignUpViewModel(
 //        }
     }
 
-    fun updateUsername(input: String){
-        uiState = uiState.copy(username = input)
-    }
-
     fun updateEmail(input: String){
         uiState = uiState.copy(email = input)
     }
@@ -49,12 +43,12 @@ class SignUpViewModel(
     }
 }
 
-data class SignUpUiState(
-    var username: String = "",
+data class LoginUiState(
     var email: String = "",
     var password: String = "",
     var isAuthenticating: Boolean = false,
     var authErrorMessage: String? = null,
     var authenticationSucceed: Boolean = false
 )
+
 

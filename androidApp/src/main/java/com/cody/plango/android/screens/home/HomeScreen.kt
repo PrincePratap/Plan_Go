@@ -1,4 +1,4 @@
-package com.cody.plango.android.Home
+package com.cody.plango.android.screens.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,9 +9,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.cody.plango.android.R
 
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -31,12 +28,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cody.plango.android.common.components.HomeToolbar
+import com.cody.plango.android.common.components.MyCustomBottomNavigationBarSvg
 
 // Assume you have a basic Material 3 theme
 
@@ -59,7 +56,11 @@ val sampleDestinations = listOf(
         location = "Tekergat, Sunamgnj",
         rating = 4.7f,
         imageUrl = R.drawable.rectangle_838, // Use your placeholder
-        visitors = listOf(R.drawable.rectangle_838, R.drawable.rectangle_838, R.drawable.rectangle_838), // Use placeholders
+        visitors = listOf(
+            R.drawable.rectangle_838,
+            R.drawable.rectangle_838,
+            R.drawable.rectangle_838
+        ), // Use placeholders
         visitorCount = 50
     ),
     Destination(
@@ -75,99 +76,102 @@ val sampleDestinations = listOf(
 )
 
 
-
-
 @Composable
 fun HomeScreen(userName: String, destinations: List<Destination>) {
-    // The main content area with white background and rounded top corners
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background, // Should be white in your theme for this screen
-        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp) // Rounded top corners
-    ) {
-        Column(
+    Scaffold(
+        bottomBar = {
+            MyCustomBottomNavigationBarSvg(
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    ) { innerPadding ->
+        Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 20.dp, end = 20.dp, top = 20.dp) // Overall padding
+                .padding(innerPadding),
+            color = MaterialTheme.colorScheme.background,
+            shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
         ) {
-            // Top Row: User Chip and Notification Icon
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
             ) {
-                HomeToolbar(userName = userName, avatarResId = R.drawable.rectangle_838, onUserClick = {}, onNotificationClick = {}) // Reuse UserChip
-
-                // Notification Icon Button
-                IconButton(
-                    onClick = { /* TODO: Handle notification click */ },
-                    modifier = Modifier
-                        .size(40.dp) // Adjust size as needed
-                        .clip(CircleShape)
-                        .background(Color(0xFFF3F4F6)) // Light gray background for icon button
+                // Top Row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Notifications,
-                        contentDescription = "Notifications",
-                        tint = Color.Black // Or MaterialTheme.colorScheme.onSurfaceVariant
+                    HomeToolbar(
+                        userName = userName,
+                        avatarResId = R.drawable.rectangle_838,
+                        onUserClick = {},
+                        onNotificationClick = {}
                     )
-                }
-            }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Headline Text
-            Text(
-                text = buildAnnotatedString {
-                    append("Explore the\n")
-                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                        append("Beautiful ")
-                    }
-                    withStyle(
-                        style = SpanStyle(
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFFFFA500) // Orange color
-                            // Note: The underline swoosh is complex; using simple styling here
-                        )
+                    IconButton(
+                        onClick = { /* TODO */ },
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFFF3F4F6))
                     ) {
-                        append("world!")
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = "Notifications",
+                            tint = Color.Black
+                        )
                     }
-                },
-                style = MaterialTheme.typography.headlineLarge, // Adjust style as needed
-                lineHeight = 40.sp // Adjust line height for spacing
-            )
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Best Destination Header Row
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Best Destination",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
-                TextButton(onClick = { /* TODO: Handle View All click */ }) {
-                    Text(
-                        text = "View all",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary // Use theme's primary color
-                    )
                 }
-            }
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-            // Destination Cards List
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(16.dp), // Spacing between cards
-                contentPadding = PaddingValues(bottom = 16.dp) // Padding at the bottom if needed
-            ) {
-                items(destinations) { destination ->
-                    DestinationCard(destination = destination)
+                // Explore Text
+                Text(
+                    text = buildAnnotatedString {
+                        append("Explore the\n")
+                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                            append("Beautiful ")
+                        }
+                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color(0xFFFFA500))) {
+                            append("world!")
+                        }
+                    },
+                    style = MaterialTheme.typography.headlineLarge,
+                    lineHeight = 40.sp
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Best Destination Row
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp, vertical = 20.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Best Destination",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    TextButton(onClick = { /* TODO */ }) {
+                        Text(
+                            text = "View all",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    contentPadding = PaddingValues(bottom = 16.dp)
+                ) {
+                    items(destinations) { destination ->
+                        DestinationCard(destination)
+                    }
                 }
             }
         }
@@ -194,12 +198,14 @@ fun DestinationCard(destination: Destination) {
                 modifier = Modifier
                     .height(180.dp) // Fixed height for the image part
                     .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp, top = 20.dp)
             ) {
                 Image(
                     painter = painterResource(id = destination.imageUrl),
                     contentDescription = destination.name,
                     contentScale = ContentScale.Crop, // Crop to fill the bounds
                     modifier = Modifier.fillMaxSize()
+
                 )
                 // Bookmark Icon Button (Top End)
                 Box(
@@ -303,14 +309,16 @@ fun DestinationCard(destination: Destination) {
 
 
 // Preview Composable
-@Preview(showBackground = true, backgroundColor = 0xFF333333) // Dark background like original context
+@Preview(showBackground = true, backgroundColor = 0xFF333333)
 @Composable
 fun HomeScreenPreview() {
-        // The screen itself has a white background defined in its Surface
-        Box(modifier=Modifier.fillMaxSize()) { // Added Box to constrain the preview
-            HomeScreen(userName = "Leonardo", destinations = sampleDestinations)
-        }
-
+    Box(
+        modifier = Modifier
+            .size(width = 400.dp, height = 800.dp) // fixed size for Preview
+            .background(Color.Black)
+    ) {
+        HomeScreen(userName = "Leonardo", destinations = sampleDestinations)
+    }
 }
 
 

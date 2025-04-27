@@ -1,4 +1,4 @@
-package com.cody.plango.android.Home.Onboarding
+package com.cody.plango.android.screens.home.Onboarding
 
 import androidx.compose.ui.graphics.Color
 
@@ -36,7 +36,6 @@ fun OnboardingScreen3() {
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background) // Or specific background if needed
-            .systemBarsPadding() // Add padding for status and navigation bars
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
 

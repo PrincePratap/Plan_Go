@@ -1,4 +1,4 @@
-package com.cody.plango.android.auth.signup
+package com.cody.plango.android.screens.auth.signup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

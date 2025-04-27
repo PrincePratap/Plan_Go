@@ -1,7 +1,7 @@
 package com.cody.plango.android.di
 
-import com.cody.plango.android.auth.Login.LoginViewModel
-import com.cody.plango.android.auth.signup.SignUpViewModel
+import com.cody.plango.android.screens.auth.Login.LoginViewModel
+import com.cody.plango.android.screens.auth.signup.SignUpViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 

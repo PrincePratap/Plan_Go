@@ -1,8 +1,8 @@
-package com.cody.plango.android.auth.Login
+package com.cody.plango.android.screens.auth.Login
 
 import androidx.compose.runtime.Composable
-import com.cody.plango.android.auth.destinations.LoginDestination
-import com.cody.plango.android.auth.destinations.SignUpDestination
+import com.cody.plango.android.screens.auth.destinations.LoginDestination
+import com.cody.plango.android.screens.auth.destinations.SignUpDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.androidx.compose.koinViewModel

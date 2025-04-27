@@ -28,18 +28,5 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun GreetingView(text: String) {
-    Text(
-        text = text,
-        modifier = Modifier.padding(20.dp)
-    )
-}
 
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        GreetingView("Hello, Android!")
-    }
-}
+

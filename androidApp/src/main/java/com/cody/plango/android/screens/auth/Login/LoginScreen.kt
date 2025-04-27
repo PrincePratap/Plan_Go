@@ -1,4 +1,4 @@
-package com.cody.plango.android.auth.Login
+package com.cody.plango.android.screens.auth.Login
 
 
 

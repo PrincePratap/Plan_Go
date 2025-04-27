@@ -53,10 +53,10 @@ fun FacilityItem(
 @Preview(showBackground = true)
 @Composable
 fun FacilityItemPreview() {
-    FacilityItem(
-        facility = FacilityItem(
-            iconId = R.drawable.ic_wifi, // Make sure this icon exists in res/drawable
-            label = "Wi-Fi"
-        )
-    )
+//    FacilityItem(
+//        facility = FacilityItem(
+//            iconId = R.drawable.ic_wifi, // Make sure this icon exists in res/drawable
+//            label = "Wi-Fi"
+//        )
+//    )
 }

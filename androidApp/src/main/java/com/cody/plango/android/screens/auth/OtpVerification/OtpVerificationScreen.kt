@@ -1,4 +1,4 @@
-package com.cody.plango.android.auth.OtpVerification
+package com.cody.plango.android.screens.auth.OtpVerification
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

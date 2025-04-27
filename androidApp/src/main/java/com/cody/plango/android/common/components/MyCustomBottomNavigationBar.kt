@@ -29,7 +29,7 @@ data class BottomNavItemSvg(
 
 
 @Composable
-fun MyCustomBottomNavigationBarSvg() {
+fun MyCustomBottomNavigationBarSvg(modifier: Modifier) {
     var selectedItemLabel by remember { mutableStateOf("Calendar") }
 
     // Define the navigation items using Drawable Resource IDs
@@ -53,7 +53,7 @@ fun MyCustomBottomNavigationBarSvg() {
         color = barBackgroundColor,
         shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         shadowElevation = 8.dp,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -167,7 +167,7 @@ fun MyCustomBottomNavigationBarSvgPreview() {
             // the dummy items to it for a flawless preview if it relies
             // heavily on specific resource IDs that might not exist during preview generation.
             // However, often just having *any* drawable works for preview layout.
-            MyCustomBottomNavigationBarSvg() // Usually works if R.drawable resolves somehow
+            MyCustomBottomNavigationBarSvg(modifier = Modifier) // Usually works if R.drawable resolves somehow
         }
 
 }

@@ -38,4 +38,18 @@
     <string name="create_post_destination_title">New post</string>
     <string name="create_post_button_label">Create post</string>
     <string name="select_post_image_label">Post image:</string>
+
+    <string name="profile">Profile</string>
+    <string name="bookmarked">Bookmarked</string>
+    <string name="previous_trips">Previous Trips</string>
+    <string name="settings">Settings</string>
+    <string name="version">Version</string>
+    <string name="reward_points">Reward Points</string>
+    <string name="travel_trips">Travel Trips</string>
+    <string name="bucket_list">Bucket List</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="email_placeholder">leonardo@gmail.com</string>
+    <string name="username_placeholder">Leonardo</string>
+    <string name="back">Back</string>
+    
 </resources>
