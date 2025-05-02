@@ -21,7 +21,9 @@ fun SignUpScreen(
     modifier: Modifier = Modifier,
     uiState: SignUpUiState,
     onUsernameChange: (String) -> Unit,
+    onFullNameChange: (String) -> Unit,
     onEmailChange: (String) -> Unit,
+    onPhoneNumberChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onNavigateToLogin: () -> Unit,
     onNavigateToHome: () -> Unit,
@@ -59,10 +61,27 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         CustomTextField(
+            value = uiState.fullName,
+            onValueChange = onFullNameChange,
+            hint = R.string.full_name_hint
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        CustomTextField(
             value = uiState.email,
             onValueChange = onEmailChange,
             hint = R.string.email_hint,
             keyboardType = KeyboardType.Email
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        CustomTextField(
+            value = uiState.phoneNumber,
+            onValueChange = onPhoneNumberChange,
+            hint = R.string.phone_number_hint,
+            keyboardType = KeyboardType.Phone
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -77,7 +96,7 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = "Password must be 8 character",
+            text = "Password must be 8 characters",
             color = Color.Gray,
             fontSize = 12.sp,
             modifier = Modifier.align(Alignment.Start)
@@ -95,7 +114,7 @@ fun SignUpScreen(
         Row {
             Text(text = "Already have an account? ", color = Color.Gray)
             Text(
-                text = "Loin",
+                text = "Login",
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.clickable(onClick = onNavigateToLogin)
             )
@@ -104,21 +123,27 @@ fun SignUpScreen(
 }
 
 
+
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
     SignUpScreen(
         uiState = SignUpUiState(
             username = "john_doe",
+            fullName = "John Doe",
             email = "john@example.com",
+            phoneNumber = "9876543210",
             password = "password123"
         ),
         onUsernameChange = {},
+        onFullNameChange = {},
         onEmailChange = {},
+        onPhoneNumberChange = {},
         onPasswordChange = {},
         onNavigateToLogin = {},
         onNavigateToHome = {},
         onSignUpClick = {}
     )
 }
+
 

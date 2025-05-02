@@ -2,6 +2,8 @@
 <resources>
     <string name="username_hint">Name</string>
     <string name="email_hint">Email</string>
+    <string name="full_name_hint">Full name </string>
+    <string name="phone_number_hint">Phone number</string>
     <string name="password_hint">Password</string>
     <string name="signup_button_hint">Create account</string>
     <string name="login_button_label">Login</string>

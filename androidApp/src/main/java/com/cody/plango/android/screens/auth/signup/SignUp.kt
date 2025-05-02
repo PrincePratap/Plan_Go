@@ -19,7 +19,9 @@ fun SignUp(
     SignUpScreen(
         uiState = viewModel.uiState,
         onUsernameChange = viewModel::updateUsername,
+        onFullNameChange = viewModel::updateFullName,
         onEmailChange = viewModel::updateEmail,
+        onPhoneNumberChange = viewModel::updatePhoneNumber,
         onPasswordChange = viewModel::updatePassword,
         onNavigateToLogin = {
             navigator.navigate(LoginDestination){
@@ -33,6 +35,6 @@ fun SignUp(
 //                popUpTo(SignUpDestination.route){inclusive = true}
 //            }
         },
-        onSignUpClick = viewModel::signUp
+        onSignUpClick = viewModel::signUp,
     )
 }

@@ -196,7 +196,7 @@ fun LoginScreen(
                     text = "Sign up",
                     color = MaterialTheme.colorScheme.primary, // Blue link color
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
-                    modifier = Modifier.clickable { /* Handle Sign Up navigation */ }
+                    modifier = Modifier.clickable(onClick = onNavigateToSignup)
                 )
             }
             Spacer(modifier = Modifier.weight(1f)) // Push content up if screen is tall
@@ -205,10 +205,18 @@ fun LoginScreen(
     }
 }
 
-@Preview(showBackground = true, widthDp = 375, heightDp = 812, uiMode = Configuration.UI_MODE_NIGHT_YES, name="Dark Mode Preview")
+@Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    // Wrap the screen in the defined theme for preview
-//        LoginScreen()
-
+    LoginScreen(
+        uiState = LoginUiState(
+            email = "john@example.com",
+            password = "password123"
+        ),
+        onEmailChange = {},
+        onPasswordChange = {},
+        onNavigateToHome = {},
+        onSignInClick = {},
+        onNavigateToSignup = {}
+    )
 }
