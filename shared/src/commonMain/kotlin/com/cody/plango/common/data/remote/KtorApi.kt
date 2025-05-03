@@ -16,7 +16,7 @@ private const val BASE_URL = "http://13.61.22.63/"
 internal abstract class KtorApi {
 
     val client = HttpClient {
-        install(ContentNegotiation){
+        install(ContentNegotiation) {
             json(Json {
                 ignoreUnknownKeys = true
                 useAlternativeNames = false
@@ -24,22 +24,24 @@ internal abstract class KtorApi {
         }
     }
 
-    fun HttpRequestBuilder.endPoint(path: String){
+    fun HttpRequestBuilder.endPoint(path: String) {
         url {
             takeFrom(BASE_URL)
             path(path)
             contentType(ContentType.Application.Json)
         }
+        println("✅ [KtorApi] Endpoint set to: $BASE_URL$path")
     }
 
     fun HttpRequestBuilder.setToken(token: String) {
         headers {
             append(name = "Authorization", value = "Bearer $token")
         }
+        println("🔐 [KtorApi] Authorization header set: Bearer $token")
     }
 
-    fun HttpRequestBuilder.setupMultipartRequest(){
+    fun HttpRequestBuilder.setupMultipartRequest() {
         contentType(ContentType.MultiPart.FormData)
+        println("📦 [KtorApi] Request type set to Multipart/Form-Data")
     }
 }
-

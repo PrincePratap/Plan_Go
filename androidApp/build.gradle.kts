@@ -2,8 +2,11 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-
     id("com.google.devtools.ksp") version "2.0.0-1.0.24"
+    //Kotlinx Serialization
+    kotlin("plugin.serialization") version "2.0.0"
+
+
 //    id("com.google.relay") version "1.0.0"
 }
 
@@ -63,6 +66,8 @@ dependencies {
     ksp("io.github.raamcosta.compose-destinations:ksp:1.8.38-beta")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
 
 

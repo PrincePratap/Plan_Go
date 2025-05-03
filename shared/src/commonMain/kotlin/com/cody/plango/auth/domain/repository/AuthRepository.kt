@@ -15,5 +15,5 @@ internal interface AuthRepository {
         password: String,
     ): Result<AuthResultData>
 
-//    suspend fun signIn(username: String,fullName: String,email: String,phoneNumber: String, password: String): Result<AuthResultData>
+    suspend fun signIn(email: String,password: String): Result<AuthResultData>
 }
