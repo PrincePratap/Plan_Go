@@ -24,7 +24,8 @@ internal class AuthRepositoryImpl(
         password: String
     ): Result<AuthResultData> = withContext(dispatcher.io) {
         try {
-            println("SignUp called with: username=$username, email=$email")
+            println("🟡 [AuthRepository] SignUp started")
+            println("➡️ Request Data: username=$username, fullName=$fullName, email=$email, phone=$phoneNumber")
 
             val request = RegisterRequest(
                 username = username,
@@ -34,11 +35,11 @@ internal class AuthRepositoryImpl(
                 phone_number = phoneNumber
             )
 
-            println("Sending registration request: $request")
+            println("📤 Sending request: $request")
 
             val registerResponse = authService.register(request)
 
-            println("Received response: accessToken=${registerResponse.access_token}, user=${registerResponse.user}")
+            println("✅ Received response: accessToken=${registerResponse.access_token}, user=${registerResponse.user}")
 
 //            userPreferences.setUserData(
 //                registerResponse.user.toAuthResultData(registerResponse.access_token).toUserSettings()
@@ -48,11 +49,13 @@ internal class AuthRepositoryImpl(
                 data = registerResponse.user.toAuthResultData(registerResponse.access_token)
             )
 
-            println("Mapped response to AuthResultData: $result")
+            println("🎯 Mapped to AuthResultData: $result")
+            println("🟢 [AuthRepository] SignUp completed successfully")
 
             result
         } catch (e: Exception) {
-            println("Exception during sign up: ")
+            println("❌ [AuthRepository] Exception during sign up: ${e.message}")
+            e.printStackTrace()
 
             Result.Error(
                 message = "Oops, something went wrong!"
@@ -63,6 +66,4 @@ internal class AuthRepositoryImpl(
     override suspend fun signIn(email: String, password: String): Result<AuthResultData> {
         TODO("Not yet implemented")
     }
-
 }
-
