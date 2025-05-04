@@ -44,8 +44,14 @@ fun UserProfileScreen(
     modifier: Modifier = Modifier,
     name: String,
     email: String,
-    @DrawableRes imageResId: Int // <-- Also pass imageResId
-) {
+    @DrawableRes imageResId: Int,
+    onNavigateToEditProfile: () -> Unit = {},
+    onNavigateToBookmarked: () -> Unit = {},
+    onNavigateToPreviousTrips: () -> Unit = {},
+    onNavigateToSettings: () -> Unit = {},
+    onNavigateToVersion: () -> Unit = {},
+
+    ) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -61,8 +67,6 @@ fun UserProfileScreen(
         StatsCard()
 
         MenuItem(modifier = Modifier)
-
-
     }
 }
 
@@ -174,7 +178,7 @@ fun MenuItem(modifier: Modifier) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .padding(horizontal = 20.dp, vertical = 8.dp)
             ) {
                 CustomIcon(modifier = Modifier.wrapContentSize(), R.drawable.ic_profile, "ProfileIcon")
                 Spacer(modifier = Modifier.width(16.dp))

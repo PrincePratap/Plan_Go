@@ -29,14 +29,25 @@ data class BottomNavItemSvg(
 
 
 @Composable
-fun MyCustomBottomNavigationBarSvg(modifier: Modifier) {
+fun MyCustomBottomNavigationBarSvg(
+    modifier: Modifier,
+    navigateHomeScreen: () -> Unit = {},
+    navigateCalendarScreen: () -> Unit = {},
+    navigateSearchScreen: () -> Unit = {},
+    navigateMessagesScreen: () -> Unit = {},
+    navigateProfileScreen: () -> Unit = {}
+) {
     var selectedItemLabel by remember { mutableStateOf("Calendar") }
 
     // Define the navigation items using Drawable Resource IDs
     // Replace these R.drawable references with your actual file names
     val items = listOf(
         BottomNavItemSvg("Home", R.drawable.ic_home_outline),
-        BottomNavItemSvg("Calendar", R.drawable.ic_calendar_outline, R.drawable.ic_calendar_filled), // Use Filled ID when selected
+        BottomNavItemSvg(
+            "Calendar",
+            R.drawable.ic_calendar_outline,
+            R.drawable.ic_calendar_filled
+        ), // Use Filled ID when selected
         BottomNavItemSvg("Search", R.drawable.ic_search), // Special case handled separately
         BottomNavItemSvg("Messages", R.drawable.ic_chat_outline), // Example icon ID
         BottomNavItemSvg("Profile", R.drawable.ic_person_outline)
@@ -80,7 +91,12 @@ fun MyCustomBottomNavigationBarSvg(modifier: Modifier) {
                             shape = CircleShape,
                             containerColor = fabBackgroundColor,
                             contentColor = fabContentColor, // contentColor is used for Icon tint by default
-                            elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp, 0.dp, 0.dp),
+                            elevation = FloatingActionButtonDefaults.elevation(
+                                0.dp,
+                                0.dp,
+                                0.dp,
+                                0.dp
+                            ),
                             modifier = Modifier
                                 .size(56.dp)
                                 .offset(y = (-10).dp) // Optional offset
@@ -101,8 +117,14 @@ fun MyCustomBottomNavigationBarSvg(modifier: Modifier) {
                                 .weight(1f)
                                 .fillMaxHeight()
                                 .clickable {
-                                    selectedItemLabel = item.label
                                     println("${item.label} clicked") // Example action
+                                    selectedItemLabel = item.label
+                                    when (item.label) {
+                                        "Home" -> navigateHomeScreen()
+                                        "Calendar" -> navigateCalendarScreen()
+                                        "Messages" -> navigateMessagesScreen()
+                                        "Profile" -> navigateProfileScreen()
+                                    }
                                 }
                                 .padding(vertical = 8.dp)
                         ) {
@@ -157,18 +179,18 @@ fun MyCustomBottomNavigationBarSvgPreview() {
     val dummyIcon = android.R.drawable.ic_menu_gallery // Or any built-in placeholder
 
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFF2C2C2C)),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            // You might need to slightly adapt the main composable or pass
-            // the dummy items to it for a flawless preview if it relies
-            // heavily on specific resource IDs that might not exist during preview generation.
-            // However, often just having *any* drawable works for preview layout.
-            MyCustomBottomNavigationBarSvg(modifier = Modifier) // Usually works if R.drawable resolves somehow
-        }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF2C2C2C)),
+        contentAlignment = Alignment.BottomCenter
+    ) {
+        // You might need to slightly adapt the main composable or pass
+        // the dummy items to it for a flawless preview if it relies
+        // heavily on specific resource IDs that might not exist during preview generation.
+        // However, often just having *any* drawable works for preview layout.
+        MyCustomBottomNavigationBarSvg(modifier = Modifier) // Usually works if R.drawable resolves somehow
+    }
 
 }
 

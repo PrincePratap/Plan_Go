@@ -1,4 +1,4 @@
-package com.cody.plango.android.screens.home.Onboarding
+package com.cody.plango.android.screens.Onboarding
 
 import androidx.compose.ui.graphics.Color
 

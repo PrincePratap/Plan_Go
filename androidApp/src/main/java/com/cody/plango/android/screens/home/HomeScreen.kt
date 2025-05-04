@@ -80,9 +80,7 @@ val sampleDestinations = listOf(
 fun HomeScreen(userName: String, destinations: List<Destination>) {
     Scaffold(
         bottomBar = {
-            MyCustomBottomNavigationBarSvg(
-                modifier = Modifier.fillMaxWidth()
-            )
+
         }
     ) { innerPadding ->
         Surface(
