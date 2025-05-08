@@ -2,7 +2,7 @@ package com.cody.plango.android
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
-import com.cody.plango.android.screens.auth.NavGraphs
+import com.cody.plango.android.screens.NavGraphs
 import com.ramcosta.composedestinations.DestinationsNavHost
 
 
