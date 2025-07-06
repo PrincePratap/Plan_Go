@@ -5,7 +5,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.androidx.compose.koinViewModel
 
-@Destination
+@Destination()
 @Composable
 fun Main( navigator: DestinationsNavigator){
     val viewModel: MainViewModel = koinViewModel()

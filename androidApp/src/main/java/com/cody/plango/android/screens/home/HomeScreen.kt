@@ -77,7 +77,7 @@ val sampleDestinations = listOf(
 
 
 @Composable
-fun HomeScreen(userName: String, destinations: List<Destination>) {
+fun HomeScreen(userName: String = "Cody", destinations: List<Destination> = sampleDestinations) {
     Scaffold(
         bottomBar = {
 

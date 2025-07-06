@@ -3,6 +3,7 @@ package com.cody.plango.android.screens.auth.Login
 
 
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,11 +12,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 
 import androidx.compose.material3.*
+import androidx.compose.material3.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -24,199 +28,131 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-
-
+import com.cody.plango.android.common.components.InputFieldCustom
+import com.cody.plango.android.common.components.theming.OceanBlue
 
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
-    uiState: LoginUiState,
-    onEmailChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onNavigateToHome: () -> Unit,
-    onSignInClick: () -> Unit,
-    onNavigateToSignup: () -> Unit
+    clickOnContinue: () -> Unit = {},
+    clickOnForgetPassword: () -> Unit = {},
+    navigateToSignUp: () -> Unit = {}
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("*********") } // Pre-filled for preview like image
-    var passwordVisible by remember { mutableStateOf(false) }
+    var phoneOrEmail by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.background // Use theme background color
-    ) { paddingValues ->
+
+    Surface(
+        color = Color.White,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues) // Apply padding from Scaffold
-                .padding(horizontal = 24.dp), // Add horizontal padding for content
+                .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(100.dp))
 
-            // Top Bar Section (Back Button)
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp) // Adjust padding as needed
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                IconButton(
-                    onClick = { /* Handle back navigation */ },
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .size(40.dp) // Adjust size
-                        .clip(CircleShape) // Make it circular
-                        .background(MaterialTheme.colorScheme.surfaceVariant) // Light grey background
+
+
+                Text(
+                    text = "Log in",
+                    style = MaterialTheme.typography.headlineLarge.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+//                Text(
+//                    text = "Create an account to continue",
+//                    style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray)
+//                )
+
+                Spacer(modifier = Modifier.height(48.dp))
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+
+                // Phone number input field
+                InputFieldCustom(
+                    value = phoneOrEmail,
+                    onValueChange = { phoneOrEmail = it },
+                    placeholderText = "Enter phone number or email"
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                InputFieldCustom(
+                    value = password,
+                    onValueChange = { password = it },
+                    placeholderText = "Enter password"
+                )
+                TextButton(
+                    onClick = {
+                        clickOnForgetPassword()
+                    },
+                    modifier = Modifier.align(Alignment.End)
                 ) {
-//                    Icon(
-//                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-//                        contentDescription = "Back",
-//                        tint = MaterialTheme.colorScheme.onSurfaceVariant // Adjust tint if needed
-//                    )
+                    Text(
+                        text = "Forgot password?",
+                        color = Color(0xFF6A67E9),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium
+                    )
                 }
+
+
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+// Continue Button
+                Button(
+                    onClick = { clickOnContinue() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(52.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = OceanBlue)
+                ) {
+                    Text(
+                        "Continue",
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+//                SignUpPrompt(Color.Black, navigate = {navigateToSignUp() })
+
+
             }
 
-            Spacer(modifier = Modifier.height(40.dp)) // Space between back button area and title
+            Spacer(modifier = Modifier.weight(1f))
 
-            // Title
-            Text(
-                text = "Sign in now",
-                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
+//            LegalText()
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Subtitle
-            Text(
-                text = "Please sign in to continue our app",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray, // Subdued color
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(40.dp)) // Space before input fields
-
-            // Email Input Field (Looks like filled style)
-            TextField(
-                value = email,
-                onValueChange = { email = it },
-                // placeholder = { Text("Email or username") }, // Optional: Add placeholder
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp), // Rounded corners
-                colors = TextFieldDefaults.colors( // Customize colors for filled look
-                    focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    focusedIndicatorColor = Color.Transparent, // Hide indicator line
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent
-                ),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Password Input Field (Looks like filled style)
-            TextField(
-                value = password,
-                onValueChange = { password = it },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp), // Rounded corners
-                colors = TextFieldDefaults.colors( // Customize colors for filled look
-                    focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    focusedIndicatorColor = Color.Transparent, // Hide indicator line
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent
-                ),
-                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-//                trailingIcon = {
-//                    val image = if (passwordVisible)
-//                        Icons.Filled.Visibility
-//                    else Icons.Filled.VisibilityOff
-//                    // Provide a description for accessibility
-//                    val description = if (passwordVisible) "Hide password" else "Show password"
-//
-//                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
-//                        Icon(imageVector = image, description, tint = MaterialTheme.colorScheme.onSurfaceVariant)
-//                    }
-//                },
-                singleLine = true
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Forget Password Link
-            Text(
-                text = "Forget Password?",
-                color = MaterialTheme.colorScheme.primary, // Use primary color for link
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .align(Alignment.End) // Align to the right
-                    .clickable { /* Handle Forgot Password */ }
-            )
-
-            Spacer(modifier = Modifier.height(32.dp)) // Space before Sign In button
-
-            // Sign In Button
-            Button(
-                onClick = { /* Handle Sign In */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp), // Standard button height
-                shape = RoundedCornerShape(12.dp), // Rounded corners for button
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary, // Blue button
-                    contentColor = MaterialTheme.colorScheme.onPrimary // White text
-                )
-            ) {
-                Text("Sign In", fontSize = 16.sp, fontWeight = FontWeight.Medium)
-            }
-
-            Spacer(modifier = Modifier.height(24.dp)) // Space before Sign Up prompt
-
-            // Sign Up Prompt
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Don't have an account? ",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray
-                )
-                Text(
-                    text = "Sign up",
-                    color = MaterialTheme.colorScheme.primary, // Blue link color
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
-                    modifier = Modifier.clickable(onClick = onNavigateToSignup)
-                )
-            }
-            Spacer(modifier = Modifier.weight(1f)) // Push content up if screen is tall
-
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }
 
-@Preview(showBackground = true)
+
+@Preview(showBackground = true, widthDp = 375, heightDp = 812)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(
-        uiState = LoginUiState(
-            email = "john@example.com",
-            password = "password123"
-        ),
-        onEmailChange = {},
-        onPasswordChange = {},
-        onNavigateToHome = {},
-        onSignInClick = {},
-        onNavigateToSignup = {}
-    )
+    MaterialTheme {
+        LoginScreen(clickOnContinue = {})
+    }
 }
